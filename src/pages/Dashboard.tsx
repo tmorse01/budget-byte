@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   cardContainer: {
     display: "flex",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   statsCard: {
     ...shorthands.padding("10px", "10px", "10px", "10px"),
