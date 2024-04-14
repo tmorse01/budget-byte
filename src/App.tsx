@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
 import Categories from "./pages/Categories";
 
+import "./App.css";
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
