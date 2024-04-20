@@ -1,27 +1,43 @@
 import * as React from "react";
 import { Text, Card, makeStyles, shorthands } from "@fluentui/react-components";
-import DonutChart from "../components/DonutChart";
+import FluentDonutChart from "@components/charts/FluentDonutChart";
+import { fetchJsonData } from "@/util/DataLoader";
+import { ExpenseData } from "@/types/types";
 
 const useStyles = makeStyles({
   container: {
     ...shorthands.padding("20px", "20px", "20px", "20px"),
+    display: "flex",
+    flexDirection: "column",
   },
   cardContainer: {
     display: "flex",
-    justifyContent: "space-between",
     flexWrap: "wrap",
+    justifyContent: "center",
   },
   statsCard: {
-    ...shorthands.padding("10px", "10px", "10px", "10px"),
+    ...shorthands.padding("20px", "20px", "20px", "20px"),
     ...shorthands.margin("10px", "10px", "10px", "10px"),
     width: "300px",
     textAlign: "center",
     backgroundColor: "#f3f2f1",
   },
+  chartCards: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
 });
 
 const Dashboard: React.FC = () => {
   const classes = useStyles();
+
+  const [expenseData, setExpenseData] = React.useState<ExpenseData[]>([]);
+  React.useEffect(() => {
+    fetchJsonData("Expenses").then((data) =>
+      setExpenseData(data as ExpenseData[])
+    );
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -38,7 +54,16 @@ const Dashboard: React.FC = () => {
           <Text size={600}>$1,550</Text>
         </Card>
       </div>
-      <DonutChart width={400} height={400} />
+      <div className={classes.chartCards}>
+        <Card className={classes.statsCard}>
+          <FluentDonutChart
+            height={280}
+            width={300}
+            innerRadius={75}
+            expenseData={expenseData}
+          />
+        </Card>
+      </div>
     </div>
   );
 };

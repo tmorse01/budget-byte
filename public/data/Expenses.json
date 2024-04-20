@@ -1,0 +1,34 @@
+[
+  {
+    "category": "Housing",
+    "amount": 20000
+  },
+  {
+    "category": "Utilities",
+    "amount": 5000
+  },
+  {
+    "category": "Groceries",
+    "amount": 8000
+  },
+  {
+    "category": "Transportation",
+    "amount": 6000
+  },
+  {
+    "category": "Entertainment",
+    "amount": 4000
+  },
+  {
+    "category": "Healthcare",
+    "amount": 3000
+  },
+  {
+    "category": "Education",
+    "amount": 7000
+  },
+  {
+    "category": "Miscellaneous",
+    "amount": 5000
+  }
+]
