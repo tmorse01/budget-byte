@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Text,
   Card,
@@ -34,17 +34,29 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     justifyContent: "center",
   },
+  chartCard: {
+    ...shorthands.padding("20px", "20px", "20px", "20px"),
+    ...shorthands.margin("10px", "10px", "10px", "10px"),
+  },
 });
 
 const Dashboard: React.FC = () => {
   const classes = useStyles();
 
-  const [expenseData, setExpenseData] = React.useState<ExpenseData[]>([]);
-  React.useEffect(() => {
+  const [expenseData, setExpenseData] = useState<ExpenseData[]>([]);
+  useEffect(() => {
     fetchJsonData("Expenses").then((data) =>
       setExpenseData(data as ExpenseData[])
     );
   }, []);
+
+  const totalExpenses = useMemo(
+    () =>
+      expenseData
+        .reduce((acc, expense) => acc + expense.amount, 0)
+        .toLocaleString(),
+    [expenseData]
+  );
 
   return (
     <div className={classes.container}>
@@ -58,15 +70,15 @@ const Dashboard: React.FC = () => {
         </Card>
         <Card className={classes.statsCard}>
           <Text size={500}>Total Expenses</Text>
-          <Text size={600}>$1,550</Text>
+          <Text size={600}>${totalExpenses}</Text>
         </Card>
       </div>
       <div className={classes.chartCards}>
-        <Card className={classes.statsCard}>
+        <Card className={classes.chartCard}>
           <FluentDonutChart
-            height={280}
-            width={300}
-            innerRadius={75}
+            height={400}
+            width={400}
+            innerRadius={100}
             expenseData={expenseData}
           />
         </Card>

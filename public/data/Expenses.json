@@ -1,34 +1,34 @@
 [
   {
     "category": "Housing",
-    "amount": 20000
+    "amount": 766
   },
   {
     "category": "Utilities",
-    "amount": 5000
+    "amount": 204
   },
   {
     "category": "Groceries",
-    "amount": 8000
+    "amount": 1957
   },
   {
     "category": "Transportation",
-    "amount": 6000
+    "amount": 1588
   },
   {
     "category": "Entertainment",
-    "amount": 4000
+    "amount": 1114
   },
   {
     "category": "Healthcare",
-    "amount": 3000
+    "amount": 1937
   },
   {
     "category": "Education",
-    "amount": 7000
+    "amount": 1318
   },
   {
     "category": "Miscellaneous",
-    "amount": 5000
+    "amount": 920
   }
 ]

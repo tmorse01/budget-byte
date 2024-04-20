@@ -26,9 +26,11 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
       legend: item.category,
       data: item.amount,
       color: getColorFromToken(getNextColor(index + 1, index)),
-      xAxisCalloutData: item.category,
+      xAxisCalloutData: item.category, // TODO: calculate percentage of total here
     })
   );
+
+  const total = chartData.reduce((acc, item) => acc + (item.data || 0), 0);
 
   const data: IChartProps = {
     chartTitle: "Expenses by Category",
@@ -40,10 +42,10 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
       culture={window.navigator.language}
       data={data}
       innerRadius={innerRadius}
-      legendsOverflowText={"overflow Items"}
+      enabledLegendsWrapLines={true} // TODO: figure out how to show all legend items
       height={height}
       width={width}
-      valueInsideDonut={39000}
+      valueInsideDonut={total}
     />
   );
 };
