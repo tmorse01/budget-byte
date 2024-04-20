@@ -3,25 +3,6 @@
   min-width: 100%;
 }
 
-.active-link {
-  color: var(--colorBrandForegroundLinkPressed);
-  text-decoration: underline !important;
-}
-
-.link {
-  color: var(--colorBrandForegroundLink);
-}
-
-.link:visited {
-  text-decoration: none;
-}
-
-a:-webkit-any-link {
-  color: unset;
-  text-decoration: unset;
-  cursor: auto;
-}
-
 .nav-bar {
   display: flex;
   justify-content: space-between;

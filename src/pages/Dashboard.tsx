@@ -1,10 +1,17 @@
 import * as React from "react";
-import { Text, Card, makeStyles, shorthands } from "@fluentui/react-components";
+import {
+  Text,
+  Card,
+  makeStyles,
+  shorthands,
+  typographyStyles,
+} from "@fluentui/react-components";
 import FluentDonutChart from "@components/charts/FluentDonutChart";
 import { fetchJsonData } from "@/util/DataLoader";
 import { ExpenseData } from "@/types/types";
 
 const useStyles = makeStyles({
+  title1: typographyStyles.title1,
   container: {
     ...shorthands.padding("20px", "20px", "20px", "20px"),
     display: "flex",
@@ -41,7 +48,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <Text as="h1" size={600} weight="semibold">
+      <Text as="h1" className={classes.title1}>
         Budget Byte Dashboard
       </Text>
       <div className={classes.cardContainer}>
