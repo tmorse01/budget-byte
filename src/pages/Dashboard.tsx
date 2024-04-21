@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import {
   Text,
   Card,
@@ -7,8 +6,12 @@ import {
   typographyStyles,
 } from "@fluentui/react-components";
 import FluentDonutChart from "@components/charts/FluentDonutChart";
-import { fetchJsonData } from "@/util/DataLoader";
-import { ExpenseData } from "@/types/types";
+import { AccountingData, TotalData } from "@/types/types";
+
+interface DashboardProps {
+  data: AccountingData[];
+  totals: TotalData;
+}
 
 const useStyles = makeStyles({
   title1: typographyStyles.title1,
@@ -39,33 +42,8 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC<DashboardProps> = ({ data, totals }) => {
   const classes = useStyles();
-
-  const [expenseData, setExpenseData] = useState<ExpenseData[]>([]);
-  useEffect(() => {
-    fetchJsonData("Expenses").then((data) =>
-      setExpenseData(data as ExpenseData[])
-    );
-  }, []);
-
-  const totals = useMemo(() => {
-    const { expenses, income, transfers } = expenseData.reduce(
-      (acc, expense) => {
-        if (expense.type === "Income") {
-          acc.income += expense.amount;
-        } else if (expense.type === "Transfer") {
-          acc.transfers += expense.amount;
-        } else {
-          acc.expenses += expense.amount;
-        }
-        return acc;
-      },
-      { expenses: 0, income: 0, transfers: 0 }
-    );
-
-    return { expenses, income, transfers };
-  }, [expenseData]);
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;
   const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
@@ -93,8 +71,8 @@ const Dashboard: React.FC = () => {
       <div className={classes.chartCards}>
         <Card className={classes.chartCard}>
           <FluentDonutChart
-            expenseData={expenseData}
-            totalExpenses={formattedIncome}
+            accountingData={data}
+            totalExpenses={formattedExpenses}
           />
         </Card>
       </div>

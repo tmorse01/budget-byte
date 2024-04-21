@@ -6,29 +6,30 @@ import {
   getColorFromToken,
   getNextColor,
 } from "@fluentui/react-charting";
-import { ExpenseData } from "@/types/types";
+import { AccountingData } from "@/types/types";
 
 interface IDonutChartProps {
-  expenseData: ExpenseData[];
+  accountingData: AccountingData[];
   totalExpenses: string;
 }
 
 const FluentDonutChart: React.FC<IDonutChartProps> = ({
-  expenseData,
+  accountingData,
   totalExpenses,
 }) => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-    innerRadius: Math.min(window.innerWidth, window.innerHeight) / 4, // example radius
+    innerRadius: Math.min(window.innerWidth, window.innerHeight) / 4,
   });
 
-  const totalAmount = expenseData.reduce(
-    (total, item) => total + item.amount,
+  const totalAmount = accountingData.reduce(
+    (total: number, item: AccountingData) => total + item.amount,
     0
   );
-  const chartData: IChartDataPoint[] = expenseData.map(
-    (item: ExpenseData, index: number) => ({
+
+  const chartData: IChartDataPoint[] = accountingData.map(
+    (item: AccountingData, index: number) => ({
       legend: item.name,
       data: item.amount,
       color: getColorFromToken(getNextColor(index + 1, index)),
