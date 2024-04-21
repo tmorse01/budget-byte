@@ -1,34 +1,13 @@
 [
-  {
-    "category": "Housing",
-    "amount": 766
-  },
-  {
-    "category": "Utilities",
-    "amount": 204
-  },
-  {
-    "category": "Groceries",
-    "amount": 1957
-  },
-  {
-    "category": "Transportation",
-    "amount": 1588
-  },
-  {
-    "category": "Entertainment",
-    "amount": 1114
-  },
-  {
-    "category": "Healthcare",
-    "amount": 1937
-  },
-  {
-    "category": "Education",
-    "amount": 1318
-  },
-  {
-    "category": "Miscellaneous",
-    "amount": 920
-  }
+  { "name": "Rent/Mortgage", "amount": 1200, "type": "Expense" },
+  { "name": "Electricity Bill", "amount": 70, "type": "Expense" },
+  { "name": "Car Payment", "amount": 400, "type": "Expense" },
+  { "name": "Grocery Shopping", "amount": 250, "type": "Expense" },
+  { "name": "Streaming Service Subscription", "amount": 15, "type": "Expense" },
+  { "name": "Gym Membership", "amount": 60, "type": "Expense" },
+  { "name": "Salary Deposit", "amount": 3000, "type": "Income" },
+  { "name": "Savings Transfer", "amount": 500, "type": "Transfer" },
+  { "name": "Credit Card Payment", "amount": 300, "type": "Transfer" },
+  { "name": "Loan Payment", "amount": 600, "type": "Transfer" },
+  { "name": "Dividends Received", "amount": 150, "type": "Income" }
 ]

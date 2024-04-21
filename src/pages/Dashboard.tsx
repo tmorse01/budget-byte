@@ -50,13 +50,22 @@ const Dashboard: React.FC = () => {
     );
   }, []);
 
-  const totalExpenses = useMemo(
-    () =>
-      expenseData
-        .reduce((acc, expense) => acc + expense.amount, 0)
-        .toLocaleString(),
-    [expenseData]
-  );
+  const totals = useMemo(() => {
+    const expenses = expenseData.reduce((acc, expense) => {
+      if (expense.type === "Income") return acc;
+      return acc + expense.amount;
+    }, 0);
+
+    const income = expenseData.reduce((acc, expense) => {
+      if (expense.type === "Income") return acc + expense.amount;
+      return acc;
+    }, 0);
+
+    return { expenses, income };
+  }, [expenseData]);
+
+  const formattedIncome = `$${totals.income.toLocaleString()}`;
+  const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
 
   return (
     <div className={classes.container}>
@@ -66,20 +75,18 @@ const Dashboard: React.FC = () => {
       <div className={classes.cardContainer}>
         <Card className={classes.statsCard}>
           <Text size={500}>Total Income</Text>
-          <Text size={600}>$2,500</Text>
+          <Text size={600}>{formattedIncome}</Text>
         </Card>
         <Card className={classes.statsCard}>
           <Text size={500}>Total Expenses</Text>
-          <Text size={600}>${totalExpenses}</Text>
+          <Text size={600}>{formattedExpenses}</Text>
         </Card>
       </div>
       <div className={classes.chartCards}>
         <Card className={classes.chartCard}>
           <FluentDonutChart
-            height={400}
-            width={400}
-            innerRadius={100}
             expenseData={expenseData}
+            totalExpenses={formattedIncome}
           />
         </Card>
       </div>

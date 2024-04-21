@@ -1,0 +1,105 @@
+[
+  {
+    "category": "Housing",
+    "subcategories": ["Rent/Mortgage", "Property Taxes", "Home Insurance"]
+  },
+  {
+    "category": "Utilities",
+    "subcategories": [
+      "Electricity",
+      "Water",
+      "Gas",
+      "Internet",
+      "Cable TV",
+      "Phone"
+    ]
+  },
+  {
+    "category": "Transportation",
+    "subcategories": [
+      "Car Payments",
+      "Fuel",
+      "Maintenance and Repairs",
+      "Public Transportation",
+      "Car Insurance",
+      "Parking Fees"
+    ]
+  },
+  {
+    "category": "Food",
+    "subcategories": ["Groceries", "Dining Out", "Snacks and Beverages"]
+  },
+  {
+    "category": "Healthcare",
+    "subcategories": [
+      "Health Insurance",
+      "Medical Bills",
+      "Pharmacy/Prescriptions",
+      "Dental Care",
+      "Vision Care"
+    ]
+  },
+  {
+    "category": "Insurance",
+    "subcategories": [
+      "Life Insurance",
+      "Disability Insurance",
+      "Travel Insurance"
+    ]
+  },
+  {
+    "category": "Personal Care",
+    "subcategories": [
+      "Clothing",
+      "Salon/Barber",
+      "Gym Membership",
+      "Spa and Massage"
+    ]
+  },
+  {
+    "category": "Entertainment",
+    "subcategories": [
+      "Movies",
+      "Concerts/Events",
+      "Subscriptions",
+      "Hobbies and Sports"
+    ]
+  },
+  {
+    "category": "Education",
+    "subcategories": ["Tuition Fees", "School Supplies", "Books and Software"]
+  },
+  {
+    "category": "Children",
+    "subcategories": [
+      "Childcare",
+      "Toys and Games",
+      "School Expenses",
+      "Child Support"
+    ]
+  },
+  {
+    "category": "Pets",
+    "subcategories": ["Pet Food", "Veterinary Care", "Pet Insurance"]
+  },
+  {
+    "category": "Travel",
+    "subcategories": ["Airfare", "Accommodation", "Excursions and Tours"]
+  },
+  {
+    "category": "Savings and Investments",
+    "subcategories": [
+      "Savings Account Contributions",
+      "Retirement Account Contributions",
+      "Investment Fund Contributions"
+    ]
+  },
+  {
+    "category": "Debts",
+    "subcategories": ["Credit Card Payments", "Loan Payments"]
+  },
+  {
+    "category": "Miscellaneous",
+    "subcategories": ["Gifts", "Donations", "Legal Fees"]
+  }
+]
