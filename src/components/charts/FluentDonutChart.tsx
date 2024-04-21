@@ -23,12 +23,19 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
     innerRadius: Math.min(window.innerWidth, window.innerHeight) / 4, // example radius
   });
 
+  const totalAmount = expenseData.reduce(
+    (total, item) => total + item.amount,
+    0
+  );
   const chartData: IChartDataPoint[] = expenseData.map(
     (item: ExpenseData, index: number) => ({
       legend: item.name,
       data: item.amount,
       color: getColorFromToken(getNextColor(index + 1, index)),
-      xAxisCalloutData: item.name, // TODO: calculate percentage of total here
+      xAxisCalloutData: `${item.name} (${(
+        (item.amount / totalAmount) *
+        100
+      ).toFixed(2)}%)`,
     })
   );
 

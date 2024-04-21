@@ -35,6 +35,7 @@ const useStyles = makeStyles({
   chartCard: {
     ...shorthands.padding("20px", "20px", "20px", "20px"),
     ...shorthands.margin("10px", "10px", "10px", "10px"),
+    backgroundColor: "#f3f2f1",
   },
 });
 
