@@ -30,9 +30,7 @@ const useStyles = makeStyles({
     backgroundColor: "#f3f2f1",
   },
   chartCards: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    display: "grid",
   },
   chartCard: {
     ...shorthands.padding("20px", "20px", "20px", "20px"),
@@ -51,21 +49,26 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const totals = useMemo(() => {
-    const expenses = expenseData.reduce((acc, expense) => {
-      if (expense.type === "Income") return acc;
-      return acc + expense.amount;
-    }, 0);
+    const { expenses, income, transfers } = expenseData.reduce(
+      (acc, expense) => {
+        if (expense.type === "Income") {
+          acc.income += expense.amount;
+        } else if (expense.type === "Transfer") {
+          acc.transfers += expense.amount;
+        } else {
+          acc.expenses += expense.amount;
+        }
+        return acc;
+      },
+      { expenses: 0, income: 0, transfers: 0 }
+    );
 
-    const income = expenseData.reduce((acc, expense) => {
-      if (expense.type === "Income") return acc + expense.amount;
-      return acc;
-    }, 0);
-
-    return { expenses, income };
+    return { expenses, income, transfers };
   }, [expenseData]);
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;
   const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
+  const formattedTransfers = `$${totals.transfers.toLocaleString()}`;
 
   return (
     <div className={classes.container}>
@@ -80,6 +83,10 @@ const Dashboard: React.FC = () => {
         <Card className={classes.statsCard}>
           <Text size={500}>Total Expenses</Text>
           <Text size={600}>{formattedExpenses}</Text>
+        </Card>
+        <Card className={classes.statsCard}>
+          <Text size={500}>Total Transfers</Text>
+          <Text size={600}>{formattedTransfers}</Text>
         </Card>
       </div>
       <div className={classes.chartCards}>
