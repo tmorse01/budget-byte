@@ -1,98 +1,79 @@
 import * as React from "react";
 import { AccountingData } from "@/types/types";
 import {
-  DetailsList,
-  IColumn,
-  TextField,
-  SelectionMode,
-} from "@fluentui/react";
+  TableBody,
+  TableCell,
+  TableRow,
+  Table,
+  TableHeader,
+  TableHeaderCell,
+  TableCellLayout,
+  shorthands,
+  makeStyles,
+  typographyStyles,
+  Text,
+} from "@fluentui/react-components";
+import UploadCSVDialog from "@/components/UploadDialog";
+import { formatCurrency } from "@/util/Helpers";
 
 interface ExpensesProps {
   data: AccountingData[];
   handleDataChange: (newData: AccountingData[]) => void;
 }
 
-const Expenses: React.FC<ExpensesProps> = ({ data, handleDataChange }) => {
-  const onCellChange = (
-    item: AccountingData,
-    field: keyof AccountingData,
-    newValue: unknown
-  ) => {
-    const newData = data.map((i) => {
-      if (i.key === item.key) {
-        return { ...i, [field]: newValue };
-      }
-      return i;
-    });
-    handleDataChange(newData);
-  };
+const columns = [
+  { columnKey: "date", label: "Date" },
+  { columnKey: "description", label: "Description" },
+  { columnKey: "category", label: "Category" },
+  { columnKey: "amount", label: "Amount" },
+];
 
-  const columns: IColumn[] = [
-    {
-      key: "column1",
-      name: "Name",
-      fieldName: "name",
-      minWidth: 100,
-      maxWidth: 200,
-      onRender: (item: AccountingData) => (
-        <TextField
-          value={item.name}
-          onChange={(_, newValue) => onCellChange(item, "name", newValue)}
-        />
-      ),
-    },
-    {
-      key: "column2",
-      name: "Description",
-      fieldName: "description",
-      minWidth: 150,
-      maxWidth: 300,
-      onRender: (item: AccountingData) => (
-        <TextField
-          value={item.description}
-          onChange={(_, newValue) =>
-            onCellChange(item, "description", newValue)
-          }
-        />
-      ),
-    },
-    {
-      key: "column3",
-      name: "Amount",
-      fieldName: "amount",
-      minWidth: 70,
-      maxWidth: 100,
-      onRender: (item: AccountingData) => (
-        <TextField
-          value={item.amount.toString()}
-          onChange={(_, newValue) =>
-            onCellChange(item, "amount", newValue ? parseInt(newValue) : 0)
-          }
-        />
-      ),
-    },
-    {
-      key: "column4",
-      name: "Category",
-      fieldName: "category",
-      minWidth: 100,
-      maxWidth: 200,
-      onRender: (item: AccountingData) => (
-        <TextField
-          value={item.category}
-          onChange={(_, newValue) => onCellChange(item, "category", newValue)}
-        />
-      ),
-    },
-  ];
+const useStyles = makeStyles({
+  title1: typographyStyles.title1,
+  container: {
+    ...shorthands.padding("20px", "20px", "20px", "20px"),
+    display: "grid",
+    justifyItems: "center",
+    ...shorthands.gap("40px"),
+  },
+});
+
+const Expenses: React.FC<ExpensesProps> = ({ data }) => {
+  // TODO: Put icons in the headers
+  const classes = useStyles();
 
   return (
-    <DetailsList
-      items={data}
-      columns={columns}
-      selectionMode={SelectionMode.none}
-      setKey="set"
-    />
+    <div className={classes.container}>
+      <Text as="h1" className={classes.title1}>
+        Categorize your Expense Data
+      </Text>
+      <UploadCSVDialog />
+      <Table aria-label="Transactions Table">
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHeaderCell key={column.columnKey}>
+                {column.label}
+              </TableHeaderCell>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{item.date}</TableCell>
+              <TableCell>
+                <TableCellLayout media={item.description}>
+                  {item.description}
+                </TableCellLayout>
+              </TableCell>
+              <TableCell>{item.category}</TableCell>
+              <TableCell>{formatCurrency(item.amount)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 

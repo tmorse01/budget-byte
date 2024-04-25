@@ -7,13 +7,9 @@ import Categories from "./pages/Categories";
 
 import "./App.css";
 import { AccountingData } from "./types/types";
-import { fetchJsonData } from "./util/DataLoader";
 
 const App: React.FC = () => {
   const [data, setData] = React.useState<AccountingData[]>([]);
-  React.useEffect(() => {
-    fetchJsonData("Expenses").then((data) => setData(data as AccountingData[]));
-  }, []);
 
   const handleDataChange = (newData: AccountingData[]) => {
     setData(newData);
