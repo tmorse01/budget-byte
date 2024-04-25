@@ -1,4 +1,10 @@
-import { AccountingData, CsvData, TransactionRecord } from "@/types/types";
+import {
+  AccountingData,
+  CategorySummary,
+  CsvData,
+  TransactionCategory,
+  TransactionRecord,
+} from "@/types/types";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -50,7 +56,63 @@ export function convertToAccountingData(
       description: transaction.Description,
       amount: parseFloat(transaction.Amount.replace(/[^\d.-]/g, "") || "0"),
       balance: parseFloat(transaction.Balance.replace(/[^\d.-]/g, "")),
-      category: "Undefined", // Placeholder, in real scenarios this might need logic to determine category
+      category: assignRandomCategory(), // TODO: Implement AI for categorization
     };
   });
+}
+
+// List of possible categories
+const categories: TransactionCategory[] = [
+  "Groceries",
+  "Transportation",
+  "Dining",
+  "Utilities",
+  "Entertainment",
+  "Healthcare",
+  "Clothing",
+  "Personal Care",
+  "Insurance",
+  "Education",
+  "Investments",
+  "Other",
+];
+
+function assignRandomCategory(): TransactionCategory {
+  const randomIndex = Math.floor(Math.random() * categories.length);
+  return categories[randomIndex];
+}
+
+export function summarizeAccountingData(
+  accountingData: AccountingData[]
+): CategorySummary[] {
+  const categoryTotals: Record<TransactionCategory, number> = {
+    Groceries: 0,
+    Transportation: 0,
+    Dining: 0,
+    Utilities: 0,
+    Entertainment: 0,
+    Healthcare: 0,
+    Clothing: 0,
+    "Personal Care": 0,
+    Insurance: 0,
+    Education: 0,
+    Investments: 0,
+    Other: 0,
+  };
+
+  // Accumulate totals for each category
+  accountingData.forEach((transaction) => {
+    categoryTotals[transaction.category as TransactionCategory] +=
+      transaction.amount;
+  });
+
+  // Create an array from the totals
+  const summaries: CategorySummary[] = Object.entries(categoryTotals).map(
+    ([category, amount]) => ({
+      category: category as TransactionCategory,
+      amount,
+    })
+  );
+
+  return summaries;
 }

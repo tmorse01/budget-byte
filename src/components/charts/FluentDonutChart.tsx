@@ -6,16 +6,18 @@ import {
   getColorFromToken,
   getNextColor,
 } from "@fluentui/react-charting";
-import { AccountingData, Breakpoint, ChartDimensions } from "@/types/types";
+import { Breakpoint, CategorySummary, ChartDimensions } from "@/types/types";
 import { determineBreakpoint, getChartDimensions } from "@/util/Helpers";
 
 interface IDonutChartProps {
-  accountingData: AccountingData[];
+  accountingData: CategorySummary[];
+  totalIncome: number;
   totalExpenses: number;
 }
 
 const FluentDonutChart: React.FC<IDonutChartProps> = ({
   accountingData,
+  totalIncome,
   totalExpenses,
 }) => {
   const [dimensions, setDimensions] = useState<ChartDimensions>({
@@ -44,16 +46,16 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
   }, [currentBreakpoint]);
 
   const totalAmount = accountingData.reduce(
-    (total: number, item: AccountingData) => total + item.amount,
+    (total: number, item: CategorySummary) => total + item.amount,
     0
   );
 
   const chartData: IChartDataPoint[] = accountingData.map(
-    (item: AccountingData, index: number) => ({
-      legend: item.name,
+    (item: CategorySummary, index: number) => ({
+      legend: item.category,
       data: item.amount,
       color: getColorFromToken(getNextColor(index + 1, index)),
-      xAxisCalloutData: `${item.name} (${(
+      xAxisCalloutData: `${item.category} (${(
         (item.amount / totalAmount) *
         100
       ).toFixed(2)}%)`,
@@ -72,7 +74,7 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
       height={dimensions.height}
       width={dimensions.width}
       innerRadius={dimensions.innerRadius}
-      valueInsideDonut={totalExpenses}
+      valueInsideDonut={totalIncome + totalExpenses}
       legendProps={{ enabledWrapLines: true }}
     />
   );

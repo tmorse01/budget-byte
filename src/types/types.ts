@@ -36,3 +36,21 @@ export interface TransactionRecord {
   Amount: string;
   Balance: string;
 }
+
+export type TransactionCategory =
+  | "Groceries"
+  | "Transportation"
+  | "Dining"
+  | "Utilities"
+  | "Entertainment"
+  | "Healthcare"
+  | "Clothing"
+  | "Personal Care"
+  | "Insurance"
+  | "Education"
+  | "Investments"
+  | "Other";
+export interface CategorySummary {
+  category: TransactionCategory;
+  amount: number;
+}

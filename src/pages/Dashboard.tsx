@@ -9,6 +9,7 @@ import FluentDonutChart from "@components/charts/FluentDonutChart";
 import { useAccounting } from "@/contexts/AccountingContext";
 import { calculateTotals } from "@/util/Helpers";
 import { useMemo } from "react";
+import { summarizeAccountingData } from "@/util/DataLoader";
 
 interface DashboardProps {}
 
@@ -43,6 +44,8 @@ const useStyles = makeStyles({
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const { data } = useAccounting();
+  console.log("Data: ", data);
+  const categorySummary = useMemo(() => summarizeAccountingData(data), [data]);
   const totals = useMemo(() => calculateTotals(data), [data]);
   const classes = useStyles();
 
@@ -67,7 +70,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
       <div className={classes.chartCards}>
         <Card className={classes.chartCard}>
           <FluentDonutChart
-            accountingData={data}
+            accountingData={categorySummary}
+            totalIncome={totals.income}
             totalExpenses={totals.expenses}
           />
         </Card>
