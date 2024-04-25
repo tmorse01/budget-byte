@@ -65,8 +65,6 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
     chartData: chartData,
   };
 
-  console.log(dimensions, currentBreakpoint);
-
   return (
     <DonutChart
       culture={window.navigator.language}

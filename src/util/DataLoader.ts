@@ -1,4 +1,5 @@
-import { CsvData, TransactionRecord } from "@/types/types";
+import { AccountingData, CsvData, TransactionRecord } from "@/types/types";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Fetches JSON data from a specified path within the /src/data folder.
@@ -37,4 +38,19 @@ export function convertCsvToJson(csvData: CsvData): TransactionRecord[] {
     return obj;
   });
   return jsonData;
+}
+
+export function convertToAccountingData(
+  transactions: TransactionRecord[]
+): AccountingData[] {
+  return transactions.map((transaction) => {
+    return {
+      key: uuidv4(),
+      date: transaction.Date,
+      description: transaction.Description,
+      amount: parseFloat(transaction.Amount.replace(/[^\d.-]/g, "") || "0"),
+      balance: parseFloat(transaction.Balance.replace(/[^\d.-]/g, "")),
+      category: "Undefined", // Placeholder, in real scenarios this might need logic to determine category
+    };
+  });
 }

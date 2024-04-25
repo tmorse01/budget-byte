@@ -6,12 +6,11 @@ import {
   typographyStyles,
 } from "@fluentui/react-components";
 import FluentDonutChart from "@components/charts/FluentDonutChart";
-import { AccountingData, TotalData } from "@/types/types";
+import { useAccounting } from "@/contexts/AccountingContext";
+import { calculateTotals } from "@/util/Helpers";
+import { useMemo } from "react";
 
-interface DashboardProps {
-  data: AccountingData[];
-  totals: TotalData;
-}
+interface DashboardProps {}
 
 const useStyles = makeStyles({
   title1: typographyStyles.title1,
@@ -42,12 +41,13 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ data, totals }) => {
+const Dashboard: React.FC<DashboardProps> = () => {
+  const { data } = useAccounting();
+  const totals = useMemo(() => calculateTotals(data), [data]);
   const classes = useStyles();
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;
   const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
-  const formattedTransfers = `$${totals.transfers.toLocaleString()}`;
 
   return (
     <div className={classes.container}>
@@ -62,10 +62,6 @@ const Dashboard: React.FC<DashboardProps> = ({ data, totals }) => {
         <Card className={classes.statsCard}>
           <Text size={500}>Total Expenses</Text>
           <Text size={600}>{formattedExpenses}</Text>
-        </Card>
-        <Card className={classes.statsCard}>
-          <Text size={500}>Total Transfers</Text>
-          <Text size={600}>{formattedTransfers}</Text>
         </Card>
       </div>
       <div className={classes.chartCards}>

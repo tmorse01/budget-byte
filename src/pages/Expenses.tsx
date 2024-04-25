@@ -1,5 +1,4 @@
 import * as React from "react";
-import { AccountingData } from "@/types/types";
 import {
   TableBody,
   TableCell,
@@ -15,11 +14,9 @@ import {
 } from "@fluentui/react-components";
 import UploadCSVDialog from "@/components/UploadDialog";
 import { formatCurrency } from "@/util/Helpers";
+import { useAccounting } from "@/contexts/AccountingContext";
 
-interface ExpensesProps {
-  data: AccountingData[];
-  handleDataChange: (newData: AccountingData[]) => void;
-}
+interface ExpensesProps {}
 
 const columns = [
   { columnKey: "date", label: "Date" },
@@ -38,7 +35,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Expenses: React.FC<ExpensesProps> = ({ data }) => {
+const Expenses: React.FC<ExpensesProps> = () => {
+  const { data } = useAccounting();
+
   // TODO: Put icons in the headers
   const classes = useStyles();
 

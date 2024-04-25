@@ -12,6 +12,8 @@ import {
 } from "@fluentui/react-components";
 import CSVReader from "./CSVUpload";
 import { CsvData } from "@/types/types";
+import { useAccounting } from "@/contexts/AccountingContext";
+import { convertCsvToJson, convertToAccountingData } from "@/util/DataLoader";
 
 const useStyles = makeStyles({
   content: {
@@ -22,10 +24,13 @@ const useStyles = makeStyles({
 
 const UploadCSVDialog = () => {
   const classes = useStyles();
+  const { setData } = useAccounting();
   const handleFileUpload = (results: CsvData) => {
     if (results) {
       // Process the uploaded CSV file here
-      console.log("Uploaded file:", results);
+      const expenseJson = convertCsvToJson(results);
+      const accountingData = convertToAccountingData(expenseJson);
+      setData(accountingData);
     }
   };
 
