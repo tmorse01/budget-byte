@@ -12,3 +12,11 @@ export type TotalData = {
   income: number;
   transfers: number;
 };
+
+export type Breakpoint = "small" | "medium" | "large" | null;
+
+export type ChartDimensions = {
+  width: number;
+  height: number;
+  innerRadius: number;
+};
