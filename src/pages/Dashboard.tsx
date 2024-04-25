@@ -72,7 +72,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data, totals }) => {
         <Card className={classes.chartCard}>
           <FluentDonutChart
             accountingData={data}
-            totalExpenses={formattedExpenses}
+            totalExpenses={totals.expenses}
           />
         </Card>
       </div>

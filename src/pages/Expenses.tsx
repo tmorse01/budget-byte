@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AccountingData, TotalData } from "@/types/types";
+import { AccountingData } from "@/types/types";
 import {
   DetailsList,
   IColumn,
@@ -16,7 +16,7 @@ const Expenses: React.FC<ExpensesProps> = ({ data, handleDataChange }) => {
   const onCellChange = (
     item: AccountingData,
     field: keyof AccountingData,
-    newValue: any
+    newValue: unknown
   ) => {
     const newData = data.map((i) => {
       if (i.key === item.key) {
