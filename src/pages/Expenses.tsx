@@ -23,6 +23,7 @@ const columns = [
   { columnKey: "description", label: "Description" },
   { columnKey: "category", label: "Category" },
   { columnKey: "amount", label: "Amount" },
+  { columnKey: "balance", label: "Balance" },
 ];
 
 const useStyles = makeStyles({
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
 
 const Expenses: React.FC<ExpensesProps> = () => {
   const { data } = useAccounting();
-
+  console.log("data: ", data);
   // TODO: Put icons in the headers
   const classes = useStyles();
 
@@ -47,7 +48,7 @@ const Expenses: React.FC<ExpensesProps> = () => {
         Categorize your Expense Data
       </Text>
       <UploadCSVDialog />
-      <Table aria-label="Transactions Table">
+      <Table aria-label="Transactions Table" size="small">
         <TableHeader>
           <TableRow>
             {columns.map((column) => (
@@ -62,12 +63,11 @@ const Expenses: React.FC<ExpensesProps> = () => {
             <TableRow key={index}>
               <TableCell>{item.date}</TableCell>
               <TableCell>
-                <TableCellLayout media={item.description}>
-                  {item.description}
-                </TableCellLayout>
+                <TableCellLayout>{item.description}</TableCellLayout>
               </TableCell>
               <TableCell>{item.category}</TableCell>
               <TableCell>{formatCurrency(item.amount)}</TableCell>
+              <TableCell>{formatCurrency(item.balance)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
