@@ -45,32 +45,6 @@ const useStyles = makeStyles({
 const Layout: React.FC = () => {
   const classes = useStyles();
 
-  const handleLogin = (username: string, password: string) => {
-    console.log(
-      "Logging in with username:",
-      username,
-      "and password ",
-      password
-    );
-    fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Login successful", response);
-        } else {
-          console.log("Login failed", response);
-        }
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-      });
-  };
-
   return (
     <FluentProvider theme={webLightTheme}>
       <div className={classes.header}>
@@ -87,7 +61,7 @@ const Layout: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <LoginDialog onLogin={handleLogin} />
+        <LoginDialog />
       </div>
       <Outlet />
     </FluentProvider>
