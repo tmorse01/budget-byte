@@ -7,7 +7,6 @@ const app = express();
 const port = 3000;
 require("dotenv").config({ path: ".env.local" });
 
-console.log("Hello World", process.env.ORIGIN_URL);
 const corsOptions = {
   origin: process.env.ORIGIN_URL,
   optionsSuccessStatus: 200,
@@ -22,6 +21,9 @@ app.use(cors(corsOptions));
 // app.use(authMiddleware);
 
 // Routes
+app.get("/api/test", (req, res) => {
+  res.send("Hello World!");
+});
 app.post("/api/login", authMiddleware.login);
 app.use("/api/expenses", expensesRoutes);
 

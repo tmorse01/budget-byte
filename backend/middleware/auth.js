@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    jwt.verify(token, "your_jwt_secret", (err, user) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }
@@ -27,7 +27,7 @@ const login = (req, res) => {
   const { username, password } = req.body;
   const user = users[username];
   if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ username }, "your_jwt_secret");
+    const token = jwt.sign({ username }, process.env.TOKEN_SECRET);
     res.json({ token });
   } else {
     res.sendStatus(401);

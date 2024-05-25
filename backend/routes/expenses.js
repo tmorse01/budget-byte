@@ -7,6 +7,28 @@ const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
+router.get("/user", (req, res) => {
+  console.log("Get User expenses route");
+  res.json({
+    expenses: [
+      {
+        id: 1,
+        date: "2021-01-01",
+        description: "Groceries",
+        category: "Food",
+        amount: 100,
+      },
+      {
+        id: 2,
+        date: "2021-01-02",
+        description: "Train ticket",
+        category: "Travel",
+        amount: 50,
+      },
+    ],
+  });
+});
+
 router.post("/upload", upload.single("file"), (req, res) => {
   const results = [];
   fs.createReadStream(req.file.path)

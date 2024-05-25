@@ -8,8 +8,9 @@ import {
 import FluentDonutChart from "@components/charts/FluentDonutChart";
 import { useAccounting } from "@/contexts/AccountingContext";
 import { calculateTotals } from "@/util/Helpers";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { summarizeAccountingData } from "@/util/DataLoader";
+import { getExpenseData } from "@/util/RequestHelper";
 
 interface DashboardProps {}
 
@@ -51,6 +52,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;
   const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
+
+  useEffect(() => {
+    console.log("Fetch data from API here");
+    getExpenseData().then((data) => console.log("Data: ", data));
+  }, []);
 
   return (
     <div className={classes.container}>
