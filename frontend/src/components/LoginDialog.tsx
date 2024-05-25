@@ -65,13 +65,13 @@ const loginRequest = (username: string, password: string): Promise<void> => {
 const LoginDialog: React.FC<LoginDialogProps> = () => {
   const styles = useStyles();
   const [open, setOpen] = React.useState(false);
-
-  const isLoggedIn = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const handleLogin = (username: string, password: string) => {
     loginRequest(username, password)
       .then(() => {
         setOpen(false);
+        setIsLoggedIn(true);
       })
       .catch(() => {
         console.log("Display error message");
@@ -80,7 +80,7 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setOpen(true);
+    setIsLoggedIn(false);
   };
 
   return (
