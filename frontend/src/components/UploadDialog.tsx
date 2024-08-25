@@ -11,9 +11,10 @@ import {
   shorthands,
 } from "@fluentui/react-components";
 import CSVReader from "./CSVUpload";
-import { CsvData } from "@/types/types";
+import { AccountingData, CsvData } from "@/types/types";
 import { useAccounting } from "@/contexts/AccountingContext";
 import { convertCsvToJson, convertToAccountingData } from "@/util/DataLoader";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   content: {
@@ -25,12 +26,19 @@ const useStyles = makeStyles({
 const UploadCSVDialog = () => {
   const classes = useStyles();
   const { setData } = useAccounting();
+  const [dataUploaded, setDataUploaded] = useState<AccountingData[]>();
   const handleFileUpload = (results: CsvData) => {
     if (results) {
       // Process the uploaded CSV file here
       const expenseJson = convertCsvToJson(results);
       const accountingData = convertToAccountingData(expenseJson);
-      setData(accountingData);
+      setDataUploaded(accountingData);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (dataUploaded) {
+      setData(dataUploaded);
     }
   };
 
@@ -49,7 +57,11 @@ const UploadCSVDialog = () => {
             <DialogTrigger disableButtonEnhancement>
               <Button appearance="secondary">Cancel</Button>
             </DialogTrigger>
-            <Button appearance="primary">Upload</Button>
+            <DialogTrigger disableButtonEnhancement>
+              <Button appearance="primary" onClick={() => handleSubmit()}>
+                Upload
+              </Button>
+            </DialogTrigger>
           </DialogActions>
         </DialogBody>
       </DialogSurface>

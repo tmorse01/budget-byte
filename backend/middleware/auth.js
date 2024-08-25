@@ -23,16 +23,15 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const login = (req, res) => {
-  const { username, password } = req.body;
-  const user = users[username];
-  if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ username }, process.env.TOKEN_SECRET);
-    res.json({ token });
-  } else {
-    res.sendStatus(401);
-  }
-};
+// const login = (req, res) => {
+//   const { username, password } = req.body;
+//   const user = users[username];
+//   if (user && bcrypt.compareSync(password, user.password)) {
+//     const token = jwt.sign({ username }, process.env.TOKEN_SECRET);
+//     res.json({ token });
+//   } else {
+//     res.sendStatus(401);
+//   }
+// };
 
 module.exports = authMiddleware;
-module.exports.login = login;

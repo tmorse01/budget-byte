@@ -1,8 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
+const authRoutes = require("./routes/auth");
 const expensesRoutes = require("./routes/expenses");
 const authMiddleware = require("./middleware/auth");
+const connectDB = require("./config/db");
+
 const app = express();
 const port = 3000;
 require("dotenv").config({ path: ".env.local" });
@@ -17,16 +20,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-// Apply auth middleware globally
-// app.use(authMiddleware);
+// Connect to MongoDB
+connectDB()
+  .then((db) => {
+    app.locals.db = db; // set the db in app locals
 
-// Routes
-app.get("/api/test", (req, res) => {
-  res.send("Hello World!");
-});
-app.post("/api/login", authMiddleware.login);
-app.use("/api/expenses", expensesRoutes);
+    // Apply auth middleware globally
+    // app.use(authMiddleware);
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+    // Routes
+    app.use("/api/expenses", expensesRoutes);
+    app.use("/api/auth", authRoutes);
+
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB:", err.message);
+  });

@@ -1,5 +1,5 @@
 import { CsvData, CsvFile } from "@/types/types";
-import React, { useState, CSSProperties } from "react";
+import { useState, CSSProperties } from "react";
 
 import {
   useCSVReader,

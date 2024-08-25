@@ -6,7 +6,6 @@ import {
   DialogBody,
   DialogActions,
   DialogContent,
-  DialogTrigger,
   Button,
   Input,
   Text,
@@ -22,6 +21,7 @@ const loginSchema = Yup.object({
     .email("Invalid email")
     .required("Username is required"),
   password: Yup.string().required("Password is required"),
+  action: Yup.string().required("Action is required"),
 });
 
 const useStyles = makeStyles({
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 });
 
 const loginRequest = (username: string, password: string): Promise<void> => {
-  return fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
+  return fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,6 +58,29 @@ const loginRequest = (username: string, password: string): Promise<void> => {
     })
     .catch((error) => {
       console.error("Error logging in:", error);
+      throw error;
+    });
+};
+
+const registerRequest = (username: string, password: string): Promise<void> => {
+  return fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("Registration successful");
+      } else {
+        console.log("Registration failed");
+        throw new Error("Registration failed");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error registering:", error);
       throw error;
     });
 };
@@ -83,6 +106,11 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
     setIsLoggedIn(false);
   };
 
+  const handleRegister = (username: string, password: string) => {
+    console.log("Register");
+    registerRequest(username, password);
+  };
+
   return (
     <Dialog
       modalType="non-modal"
@@ -100,15 +128,19 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
       )}
       <DialogSurface aria-describedby={undefined}>
         <Formik
-          initialValues={{ username: "", password: "" }}
+          initialValues={{ username: "", password: "", action: "" }}
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
             console.log("onSubmit ", values);
-            handleLogin(values.username, values.password);
+            if (values.action === "login") {
+              handleLogin(values.username, values.password);
+            } else {
+              handleRegister(values.username, values.password);
+            }
             setSubmitting(false);
           }}
         >
-          {({ errors, touched, isSubmitting }) => (
+          {({ errors, touched, isSubmitting, setFieldValue }) => (
             <Form>
               <DialogBody>
                 <DialogTitle>Login</DialogTitle>
@@ -128,15 +160,21 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
                   )}
                 </DialogContent>
                 <DialogActions>
-                  <DialogTrigger disableButtonEnhancement>
-                    <Button
-                      type="submit"
-                      appearance="primary"
-                      disabled={isSubmitting}
-                    >
-                      Login
-                    </Button>
-                  </DialogTrigger>
+                  <Button
+                    type="submit"
+                    appearance="primary"
+                    disabled={isSubmitting}
+                    onClick={() => setFieldValue("action", "login")}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    type="submit"
+                    appearance="secondary"
+                    onClick={() => setFieldValue("action", "register")}
+                  >
+                    Register
+                  </Button>
                   <Button
                     type="button"
                     appearance="secondary"
