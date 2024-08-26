@@ -13,6 +13,7 @@ import {
 } from "@fluentui/react-components";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useToast } from "@/contexts/ToastContext";
 
 interface LoginDialogProps {}
 
@@ -87,6 +88,7 @@ const registerRequest = (username: string, password: string): Promise<void> => {
 
 const LoginDialog: React.FC<LoginDialogProps> = () => {
   const styles = useStyles();
+  const { notify } = useToast();
   const [open, setOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -109,6 +111,7 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   const handleRegister = (username: string, password: string) => {
     console.log("Register");
     registerRequest(username, password);
+    notify("Registration successful", "You can now login", "success");
   };
 
   return (

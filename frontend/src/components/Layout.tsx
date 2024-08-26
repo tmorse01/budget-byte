@@ -9,6 +9,7 @@ import {
 } from "@fluentui/react-components";
 import NavLink from "@components/NavLink";
 import LoginDialog from "./LoginDialog";
+import { ToastProvider } from "@/contexts/ToastContext";
 
 const useStyles = makeStyles({
   header: {
@@ -47,23 +48,25 @@ const Layout: React.FC = () => {
 
   return (
     <FluentProvider theme={webLightTheme}>
-      <div className={classes.header}>
-        <nav className={classes.navBar}>
-          <ul className={classes.navLinks}>
-            <li className={classes.navLinkItem}>
-              <NavLink to="/">Dashboard</NavLink>
-            </li>
-            <li className={classes.navLinkItem}>
-              <NavLink to="/expenses">Expenses</NavLink>
-            </li>
-            <li className={classes.navLinkItem}>
-              <NavLink to="/categories">Categories</NavLink>
-            </li>
-          </ul>
-        </nav>
-        <LoginDialog />
-      </div>
-      <Outlet />
+      <ToastProvider>
+        <div className={classes.header}>
+          <nav className={classes.navBar}>
+            <ul className={classes.navLinks}>
+              <li className={classes.navLinkItem}>
+                <NavLink to="/">Dashboard</NavLink>
+              </li>
+              <li className={classes.navLinkItem}>
+                <NavLink to="/expenses">Expenses</NavLink>
+              </li>
+              <li className={classes.navLinkItem}>
+                <NavLink to="/categories">Categories</NavLink>
+              </li>
+            </ul>
+          </nav>
+          <LoginDialog />
+        </div>
+        <Outlet />
+      </ToastProvider>
     </FluentProvider>
   );
 };
