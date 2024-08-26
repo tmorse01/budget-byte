@@ -1,17 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const users = {
-  "admin@email.com": {
-    password: bcrypt.hashSync("password", 10),
-  },
-};
-
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+      console.log("middleware user: ", user);
       if (err) {
         return res.sendStatus(403);
       }
@@ -22,16 +17,5 @@ const authMiddleware = (req, res, next) => {
     res.sendStatus(401);
   }
 };
-
-// const login = (req, res) => {
-//   const { username, password } = req.body;
-//   const user = users[username];
-//   if (user && bcrypt.compareSync(password, user.password)) {
-//     const token = jwt.sign({ username }, process.env.TOKEN_SECRET);
-//     res.json({ token });
-//   } else {
-//     res.sendStatus(401);
-//   }
-// };
 
 module.exports = authMiddleware;

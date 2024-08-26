@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
-const expensesRoutes = require("./routes/expenses");
+const dataRoutes = require("./routes/data");
 const authMiddleware = require("./middleware/auth");
 const connectDB = require("./config/db");
 
@@ -26,10 +26,10 @@ connectDB()
     app.locals.db = db; // set the db in app locals
 
     // Apply auth middleware globally
-    // app.use(authMiddleware);
+    app.use(authMiddleware);
 
     // Routes
-    app.use("/api/expenses", expensesRoutes);
+    app.use("/api/data", dataRoutes);
     app.use("/api/auth", authRoutes);
 
     app.listen(port, () => {

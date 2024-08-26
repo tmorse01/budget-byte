@@ -4,7 +4,7 @@ export type AccountingData = {
   description?: string;
   amount: number;
   balance: number;
-  category: string;
+  category: string | undefined;
 };
 
 export type TotalData = {

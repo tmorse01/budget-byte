@@ -56,7 +56,7 @@ export function convertToAccountingData(
       description: transaction.Description,
       amount: parseFloat(transaction.Amount.replace(/[^\d.-]/g, "") || "0"),
       balance: parseFloat(transaction.Balance.replace(/[^\d.-]/g, "")),
-      category: assignRandomCategory(), // TODO: Implement AI for categorization
+      category: undefined,
     };
   });
 }
@@ -76,11 +76,6 @@ const categories: TransactionCategory[] = [
   "Investments",
   "Other",
 ];
-
-function assignRandomCategory(): TransactionCategory {
-  const randomIndex = Math.floor(Math.random() * categories.length);
-  return categories[randomIndex];
-}
 
 export function summarizeAccountingData(
   accountingData: AccountingData[]

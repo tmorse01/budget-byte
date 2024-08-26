@@ -1,33 +1,13 @@
-const categorizeExpenses = (expenses) => {
-  const categories = {
-    Food: [],
-    Travel: [],
-    Utilities: [],
-    Other: [],
-  };
+const getClassifier = require("../utils/classifier");
 
+// Function to categorize expenses
+const categorizeExpenses = (expenses) => {
   expenses.forEach((expense) => {
-    if (
-      expense.description.includes("food") ||
-      expense.description.includes("restaurant")
-    ) {
-      categories.Food.push(expense);
-    } else if (
-      expense.description.includes("flight") ||
-      expense.description.includes("taxi")
-    ) {
-      categories.Travel.push(expense);
-    } else if (
-      expense.description.includes("electricity") ||
-      expense.description.includes("water")
-    ) {
-      categories.Utilities.push(expense);
-    } else {
-      categories.Other.push(expense);
-    }
+    const category = getClassifier().classify(expense.description);
+    expense.category = category;
   });
 
-  return categories;
+  return expenses;
 };
 
 module.exports = categorizeExpenses;

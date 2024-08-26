@@ -15,6 +15,7 @@ import { AccountingData, CsvData } from "@/types/types";
 import { useAccounting } from "@/contexts/AccountingContext";
 import { convertCsvToJson, convertToAccountingData } from "@/util/DataLoader";
 import { useState } from "react";
+import { uploadCsvFile } from "@/util/DataApi";
 
 const useStyles = makeStyles({
   content: {
@@ -29,10 +30,12 @@ const UploadCSVDialog = () => {
   const [dataUploaded, setDataUploaded] = useState<AccountingData[]>();
   const handleFileUpload = (results: CsvData) => {
     if (results) {
+      // TODO: Move the conversion logic to the backend
       // Process the uploaded CSV file here
       const expenseJson = convertCsvToJson(results);
       const accountingData = convertToAccountingData(expenseJson);
       setDataUploaded(accountingData);
+      uploadCsvFile(accountingData);
     }
   };
 
