@@ -14,6 +14,7 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useToast } from "@/contexts/ToastContext";
+import { loginRequest, registerRequest } from "@/util/AuthApi";
 
 interface LoginDialogProps {}
 
@@ -37,55 +38,6 @@ const useStyles = makeStyles({
   },
 });
 
-const loginRequest = (username: string, password: string): Promise<void> => {
-  return fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Login successful");
-      } else {
-        console.log("Login failed");
-        throw new Error("Login failed");
-      }
-      return response.json();
-    })
-    .then((data: { token: string }) => {
-      localStorage.setItem("token", data.token);
-    })
-    .catch((error) => {
-      console.error("Error logging in:", error);
-      throw error;
-    });
-};
-
-const registerRequest = (username: string, password: string): Promise<void> => {
-  return fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Registration successful");
-      } else {
-        console.log("Registration failed");
-        throw new Error("Registration failed");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("Error registering:", error);
-      throw error;
-    });
-};
-
 const LoginDialog: React.FC<LoginDialogProps> = () => {
   const styles = useStyles();
   const { notify } = useToast();
@@ -97,9 +49,10 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
       .then(() => {
         setOpen(false);
         setIsLoggedIn(true);
+        notify("Login successful", "You are now logged in", "success");
       })
       .catch(() => {
-        console.log("Display error message");
+        notify("Login failed", "Invalid username or password", "error");
       });
   };
 
@@ -109,9 +62,13 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   };
 
   const handleRegister = (username: string, password: string) => {
-    console.log("Register");
-    registerRequest(username, password);
-    notify("Registration successful", "You can now login", "success");
+    registerRequest(username, password)
+      .then(() =>
+        notify("Registration successful", "You can now login", "success")
+      )
+      .catch((e: Error) => {
+        notify("Registration failed", e.message, "error");
+      });
   };
 
   return (

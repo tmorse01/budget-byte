@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
   try {
     const user = await db.collection("users").findOne({ username: username });
     if (user) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,12 +49,12 @@ router.post("/login", async (req, res) => {
   try {
     const user = await db.collection("users").findOne({ username: username });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
 
     const payload = { user: { id: user._id } };
