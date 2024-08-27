@@ -7,6 +7,11 @@ export type AccountingData = {
   category: string | undefined;
 };
 
+export type CategoryData = {
+  name: string;
+  type: "default" | "custom";
+};
+
 export type TotalData = {
   expenses: number;
   income: number;
@@ -37,19 +42,7 @@ export interface TransactionRecord {
   Balance: string;
 }
 
-export type TransactionCategory =
-  | "Groceries"
-  | "Transportation"
-  | "Dining"
-  | "Utilities"
-  | "Entertainment"
-  | "Healthcare"
-  | "Clothing"
-  | "Personal Care"
-  | "Insurance"
-  | "Education"
-  | "Investments"
-  | "Other";
+export type TransactionCategory = string;
 export interface CategorySummary {
   category: TransactionCategory;
   amount: number;

@@ -6,7 +6,7 @@ import {
   Text,
 } from "@fluentui/react-components";
 import UploadCSVDialog from "@/components/UploadDialog";
-import ExpensesTable from "@/components/charts/ExpensesTable";
+import ExpensesTable from "@/components/expenses/ExpensesTable";
 
 interface ExpensesProps {}
 

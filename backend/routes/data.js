@@ -26,7 +26,13 @@ router.post("/upload", (req, res) => {
 });
 
 router.get("/categories", (req, res) => {
-  res.json({ categories: ["Food", "Travel", "Utilities", "Other"] });
+  const db = req.app.locals.db;
+  db.collection("categories")
+    .find({ type: "default" })
+    .toArray()
+    .then((categories) => {
+      res.json(categories);
+    });
 });
 
 router.get("/expenses", async (req, res) => {

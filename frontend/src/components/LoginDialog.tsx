@@ -91,7 +91,6 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
           initialValues={{ username: "", password: "", action: "" }}
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
-            console.log("onSubmit ", values);
             if (values.action === "login") {
               handleLogin(values.username, values.password);
             } else {

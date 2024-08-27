@@ -1,5 +1,6 @@
 import {
   AccountingData,
+  CategoryData,
   CategorySummary,
   CsvData,
   TransactionCategory,
@@ -61,53 +62,51 @@ export function convertToAccountingData(
   });
 }
 
-// List of possible categories
-const categories: TransactionCategory[] = [
-  "Groceries",
-  "Transportation",
-  "Dining",
-  "Utilities",
-  "Entertainment",
-  "Healthcare",
-  "Clothing",
-  "Personal Care",
-  "Insurance",
-  "Education",
-  "Investments",
-  "Other",
-];
-
 export function summarizeAccountingData(
+  userCategories: CategoryData[],
   accountingData: AccountingData[]
 ): CategorySummary[] {
-  const categoryTotals: Record<TransactionCategory, number> = {
-    Groceries: 0,
-    Transportation: 0,
-    Dining: 0,
-    Utilities: 0,
-    Entertainment: 0,
-    Healthcare: 0,
-    Clothing: 0,
-    "Personal Care": 0,
-    Insurance: 0,
-    Education: 0,
-    Investments: 0,
-    Other: 0,
-  };
+  const categoryTotals: Record<TransactionCategory, number> =
+    Object.fromEntries(
+      userCategories.map((category) => [
+        category.name as TransactionCategory,
+        0,
+      ])
+    );
 
   // Accumulate totals for each category
   accountingData.forEach((transaction) => {
     categoryTotals[transaction.category as TransactionCategory] +=
       transaction.amount;
   });
-
   // Create an array from the totals
-  const summaries: CategorySummary[] = Object.entries(categoryTotals).map(
-    ([category, amount]) => ({
+  const summaries: CategorySummary[] = Object.entries(categoryTotals)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .filter(([_category, amount]) => amount !== 0)
+    .map(([category, amount]) => ({
       category: category as TransactionCategory,
       amount,
-    })
-  );
+    }));
 
   return summaries;
+}
+
+export async function getCategories() {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/data/categories`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  console.log("Response: ", response);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const results = await response.json();
+  console.log("Results: ", results);
+  return results.data;
 }

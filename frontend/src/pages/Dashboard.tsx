@@ -10,7 +10,8 @@ import { useAccounting } from "@/hooks/useAccounting";
 import { calculateTotals } from "@/util/Helpers";
 import { useEffect, useMemo } from "react";
 import { summarizeAccountingData } from "@/util/DataLoader";
-import { getExpenseData } from "@/util/RequestHelper";
+import useFetch from "@/hooks/useFetch";
+import { CategoryData } from "@/types/types";
 
 interface DashboardProps {}
 
@@ -44,19 +45,24 @@ const useStyles = makeStyles({
 });
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const { data } = useAccounting();
-  console.log("Data: ", data);
-  const categorySummary = useMemo(() => summarizeAccountingData(data), [data]);
-  const totals = useMemo(() => calculateTotals(data), [data]);
+  const { data: accountData } = useAccounting();
+  const { data: categoryData } = useFetch(
+    `${import.meta.env.VITE_API_URL}/api/data/categories`
+  );
+  const categories = useMemo(() => categoryData ?? [], [categoryData]);
+  const categorySummary = useMemo(
+    () =>
+      summarizeAccountingData(
+        categories as unknown as CategoryData[],
+        accountData
+      ),
+    [accountData, categories]
+  );
+  const totals = useMemo(() => calculateTotals(accountData), [accountData]);
   const classes = useStyles();
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;
   const formattedExpenses = `$${totals.expenses.toLocaleString()}`;
-
-  useEffect(() => {
-    console.log("Fetch data from API here");
-    getExpenseData().then((data) => console.log("Data: ", data));
-  }, []);
 
   return (
     <div className={classes.container}>

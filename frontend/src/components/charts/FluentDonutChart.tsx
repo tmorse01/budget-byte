@@ -46,7 +46,12 @@ const FluentDonutChart: React.FC<IDonutChartProps> = ({
   }, [currentBreakpoint]);
 
   const totalAmount = accountingData.reduce(
-    (total: number, item: CategorySummary) => total + item.amount,
+    (total: number, item: CategorySummary) => {
+      if (!isNaN(item.amount)) {
+        return total + item.amount;
+      }
+      return total;
+    },
     0
   );
 
