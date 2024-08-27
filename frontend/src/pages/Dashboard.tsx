@@ -8,7 +8,7 @@ import {
 import FluentDonutChart from "@components/charts/FluentDonutChart";
 import { useAccounting } from "@/hooks/useAccounting";
 import { calculateTotals } from "@/util/Helpers";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { summarizeAccountingData } from "@/util/DataLoader";
 import useFetch from "@/hooks/useFetch";
 import { CategoryData } from "@/types/types";

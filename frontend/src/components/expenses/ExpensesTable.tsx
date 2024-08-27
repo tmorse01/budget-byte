@@ -45,6 +45,9 @@ const ExpensesTable = () => {
   const startIndex = (currentPage - 1) * rowsPerPage;
   const paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
   // TODO: Put icons in the headers
+  // Make description the widest column
+  // Allow sorting
+  // Allow filtering - Search by description
   return (
     <>
       <Table aria-label="Expenses Table" size="small">

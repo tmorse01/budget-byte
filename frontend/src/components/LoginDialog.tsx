@@ -13,7 +13,7 @@ import {
 } from "@fluentui/react-components";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { useToast } from "@/contexts/ToastContext";
+import { useToast } from "@/hooks/useToast";
 import { loginRequest, registerRequest } from "@/util/AuthApi";
 
 interface LoginDialogProps {}
