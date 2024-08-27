@@ -14,7 +14,7 @@ import {
 } from "@fluentui/react-components";
 import UploadCSVDialog from "@/components/UploadDialog";
 import { formatCurrency } from "@/util/Helpers";
-import { useAccounting } from "@/contexts/AccountingContext";
+import { useAccounting } from "@/hooks/useAccounting";
 
 interface ExpensesProps {}
 

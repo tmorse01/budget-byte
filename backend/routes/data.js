@@ -4,24 +4,6 @@ const router = express.Router();
 
 router.get("/user", (req, res) => {
   console.log("Get User expenses route");
-  res.json({
-    expenses: [
-      {
-        id: 1,
-        date: "2021-01-01",
-        description: "Groceries",
-        category: "Food",
-        amount: 100,
-      },
-      {
-        id: 2,
-        date: "2021-01-02",
-        description: "Train ticket",
-        category: "Travel",
-        amount: 50,
-      },
-    ],
-  });
 });
 
 router.post("/upload", (req, res) => {
@@ -45,6 +27,13 @@ router.post("/upload", (req, res) => {
 
 router.get("/categories", (req, res) => {
   res.json({ categories: ["Food", "Travel", "Utilities", "Other"] });
+});
+
+router.get("/expenses", async (req, res) => {
+  const db = req.app.locals.db;
+  const userId = req.user.user.id;
+  const expenses = await db.collection("expenses").find({ userId }).toArray();
+  res.json({ data: expenses });
 });
 
 module.exports = router;

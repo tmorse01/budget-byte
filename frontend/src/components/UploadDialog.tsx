@@ -12,7 +12,7 @@ import {
 } from "@fluentui/react-components";
 import CSVReader from "./CSVUpload";
 import { AccountingData, CsvData } from "@/types/types";
-import { useAccounting } from "@/contexts/AccountingContext";
+import { useAccounting } from "@/hooks/useAccounting";
 import { convertCsvToJson, convertToAccountingData } from "@/util/DataLoader";
 import { useState } from "react";
 import { uploadCsvFile } from "@/util/DataApi";

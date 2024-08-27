@@ -25,8 +25,17 @@ connectDB()
   .then((db) => {
     app.locals.db = db; // set the db in app locals
 
-    // Apply auth middleware globally
-    app.use(authMiddleware);
+    const excludedRoutes = ["/api/auth/login", "/api/auth/register"];
+    // Apply auth middleware to all routes except excludedRoutes
+    app.use((req, res, next) => {
+      // Check if the request path is in the excluded routes
+      if (excludedRoutes.includes(req.path)) {
+        return next(); // Skip the auth middleware
+      }
+
+      // Apply the auth middleware
+      authMiddleware(req, res, next);
+    });
 
     // Routes
     app.use("/api/data", dataRoutes);

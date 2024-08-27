@@ -6,7 +6,7 @@ import {
   typographyStyles,
 } from "@fluentui/react-components";
 import FluentDonutChart from "@components/charts/FluentDonutChart";
-import { useAccounting } from "@/contexts/AccountingContext";
+import { useAccounting } from "@/hooks/useAccounting";
 import { calculateTotals } from "@/util/Helpers";
 import { useEffect, useMemo } from "react";
 import { summarizeAccountingData } from "@/util/DataLoader";
