@@ -53,6 +53,21 @@ export const registerRequest = (
     });
 };
 
-export const getIsLoggedIn = (): boolean => {
-  return !!localStorage.getItem("token");
+export const isLoggedIn = (): boolean => {
+  if (localStorage.getItem("token")) {
+    return true;
+  }
+  return false;
+};
+
+export const getUsername = (): string | null => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return null;
+  }
+  const [, payload] = token.split(".");
+  const decodedPayload = atob(payload);
+  console.log("decodedPayload:", decodedPayload);
+  const { username } = JSON.parse(decodedPayload);
+  return username;
 };

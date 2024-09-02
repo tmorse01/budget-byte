@@ -10,7 +10,6 @@ import { useAccounting } from "@/hooks/useAccounting";
 import { calculateTotals } from "@/util/Helpers";
 import { useMemo } from "react";
 import { summarizeAccountingData } from "@/util/DataLoader";
-import useFetch from "@/hooks/useFetch";
 import { CategoryData } from "@/types/types";
 
 interface DashboardProps {}
@@ -45,23 +44,18 @@ const useStyles = makeStyles({
 });
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const { data: accountData } = useAccounting();
-  const { data: categoryData } = useFetch(
-    `${import.meta.env.VITE_API_URL}/api/data/categories`,
-    {
-      requiresAuth: true,
-    }
-  );
-  const categories = useMemo(() => categoryData ?? [], [categoryData]);
+  const { data } = useAccounting();
+  const { expenses, categories } = data;
+
   const categorySummary = useMemo(
     () =>
       summarizeAccountingData(
         categories as unknown as CategoryData[],
-        accountData
+        expenses
       ),
-    [accountData, categories]
+    [expenses, categories]
   );
-  const totals = useMemo(() => calculateTotals(accountData), [accountData]);
+  const totals = useMemo(() => calculateTotals(expenses), [expenses]);
   const classes = useStyles();
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;

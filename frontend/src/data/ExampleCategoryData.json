@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "66cd6329b0eff81d3c3d1e3c",
+    "name": "Dining",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e3d",
+    "name": "Shopping",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e3e",
+    "name": "Transportation",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e3f",
+    "name": "Groceries",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e40",
+    "name": "Retail",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e41",
+    "name": "Tech",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e42",
+    "name": "Entertainment",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e43",
+    "name": "Bills",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e44",
+    "name": "Sports",
+    "type": "default"
+  },
+  {
+    "_id": "66cd6329b0eff81d3c3d1e45",
+    "name": "Home Improvement",
+    "type": "default"
+  }
+]

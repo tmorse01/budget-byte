@@ -1,4 +1,5 @@
 export type AccountingData = {
+  id_?: string;
   key: string;
   date: string;
   description?: string;
@@ -8,6 +9,7 @@ export type AccountingData = {
 };
 
 export type CategoryData = {
+  id_?: string;
   name: string;
   type: "default" | "custom";
 };

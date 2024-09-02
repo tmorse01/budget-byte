@@ -46,16 +46,17 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     localStorage.getItem("token") !== null
   );
-  const { data: accountData, setData, fetchData } = useAccounting();
+  const { fetchData } = useAccounting();
 
   const handleLogin = (username: string, password: string) => {
     loginRequest(username, password)
       .then(() => {
         setOpen(false);
         setIsLoggedIn(true);
-        fetchData();
-        setData(accountData);
         notify("Login successful", "You are now logged in", "success");
+      })
+      .then(() => {
+        fetchData();
       })
       .catch(() => {
         notify("Login failed", "Invalid username or password", "error");
@@ -65,7 +66,7 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setData([]);
+    fetchData();
   };
 
   const handleRegister = (username: string, password: string) => {
@@ -95,7 +96,11 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
       )}
       <DialogSurface aria-describedby={undefined}>
         <Formik
-          initialValues={{ username: "", password: "", action: "" }}
+          initialValues={{
+            username: "tmorse725@gmail.com",
+            password: "test",
+            action: "",
+          }}
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
             if (values.action === "login") {

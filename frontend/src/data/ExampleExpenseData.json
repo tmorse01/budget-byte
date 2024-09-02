@@ -1,0 +1,212 @@
+[
+  {
+    "_id": "66cc120d345e0b31b845ecf3",
+    "key": "b872534f-3cd9-4b20-85b1-d6b9d6f5a74a",
+    "date": "08/20/2024",
+    "description": "STARBUCKS 1234 BELLINGHAM, WA",
+    "amount": 5.75,
+    "balance": 195.25,
+    "category": "Dining",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf4",
+    "key": "c19d8b8c-2b8b-4ed4-84aa-1a989c44c5f4",
+    "date": "08/21/2024",
+    "description": "TARGET 5432 SEATTLE, WA",
+    "amount": 45.32,
+    "balance": 149.93,
+    "category": "Shopping",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf5",
+    "key": "d02d4a29-5f4c-476b-9d1c-f0d214b1f04c",
+    "date": "08/22/2024",
+    "description": "SHELL OIL 12345 SEATTLE, WA",
+    "amount": 63.1,
+    "balance": 86.83,
+    "category": "Transportation",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf6",
+    "key": "e8f104fc-7f98-4f1b-b4ab-c89dd7b5452e",
+    "date": "08/23/2024",
+    "description": "COSTCO 7890 BELLINGHAM, WA",
+    "amount": 120.45,
+    "balance": 232.83,
+    "category": "Groceries",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf7",
+    "key": "a8b1c8e1-5b2b-40a3-890c-d9bb5b21a8c2",
+    "date": "08/24/2024",
+    "description": "AMAZON.COM ORDER #123-4567890",
+    "amount": 35.67,
+    "balance": 197.16,
+    "category": "Retail",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf8",
+    "key": "f091be71-7cde-432f-b2b5-3b8b5b678c42",
+    "date": "08/25/2024",
+    "description": "SAFEWAY 6789 BELLINGHAM, WA",
+    "amount": 65.43,
+    "balance": 131.73,
+    "category": "Groceries",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecf9",
+    "key": "b54f6c90-abc4-4f2f-987b-d5c1f0b91d0d",
+    "date": "08/26/2024",
+    "description": "NORDSTROM 4567 SEATTLE, WA",
+    "amount": 89.99,
+    "balance": 41.74,
+    "category": "Shopping",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecfa",
+    "key": "c4bcd4b3-93a2-4cf1-bf4a-e07b0d9c4e3e",
+    "date": "08/27/2024",
+    "description": "PEETS COFFEE 01234 SEATTLE, WA",
+    "amount": 4.75,
+    "balance": 36.99,
+    "category": "Dining",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecfb",
+    "key": "e3cbe5b4-b87f-4c4f-a9a3-987fba95f9c0",
+    "date": "08/28/2024",
+    "description": "APPLE.COM ORDER #A2345678",
+    "amount": 150.0,
+    "balance": 186.99,
+    "category": "Tech",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecfc",
+    "key": "f9e8f6d2-b87b-4a9f-9c47-0e9fbcbf9d21",
+    "date": "08/29/2024",
+    "description": "REI 2345 SEATTLE, WA",
+    "amount": 45.23,
+    "balance": 141.76,
+    "category": "Sports",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecfd",
+    "key": "a1e9f4e3-65b2-432f-a91d-6b3e2c9e9d0f",
+    "date": "08/30/2024",
+    "description": "UBER TRIP 4567 SEATTLE, WA",
+    "amount": 23.89,
+    "balance": 117.87,
+    "category": "Transportation",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecfe",
+    "key": "f2d3b3b6-cb1e-40b2-944f-cb6d2d5c0f3f",
+    "date": "09/01/2024",
+    "description": "PCC COMMUNITY MARKETS 2345 BELLINGHAM, WA",
+    "amount": 75.8,
+    "balance": 42.07,
+    "category": "Groceries",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ecff",
+    "key": "c7f9f2d1-9f87-4b0f-9c47-4b1ec6d7b81e",
+    "date": "09/02/2024",
+    "description": "NETFLIX SUBSCRIPTION 12345",
+    "amount": 15.99,
+    "balance": 26.08,
+    "category": "Entertainment",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed00",
+    "key": "f1a9e3b2-2c7a-4f1f-a9b3-1e8b7f3c6c8e",
+    "date": "09/03/2024",
+    "description": "PANERA BREAD 4567 SEATTLE, WA",
+    "amount": 12.5,
+    "balance": 13.58,
+    "category": "Dining",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed01",
+    "key": "b6e2f4d3-5b2a-48f2-94b2-7d1c5c7e0f1a",
+    "date": "09/04/2024",
+    "description": "WALMART 6789 SEATTLE, WA",
+    "amount": 42.34,
+    "balance": 228.67,
+    "category": "Shopping",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed02",
+    "key": "c2f7f5b4-d9f8-40a2-a9b1-7f8e4b2c6c7e",
+    "date": "09/05/2024",
+    "description": "GAS STATION 2345 BELLINGHAM, WA",
+    "amount": 50.67,
+    "balance": 178.0,
+    "category": "Transportation",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed03",
+    "key": "f3b8d5b6-5c7d-4f1a-9c89-d9f8f3d1f7b4",
+    "date": "09/06/2024",
+    "description": "COMCAST INTERNET 123456789",
+    "amount": 65.0,
+    "balance": 113.0,
+    "category": "Bills",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed04",
+    "key": "c2f4e3b5-5f8d-40b3-98b1-9f3d7b8e9d4c",
+    "date": "09/07/2024",
+    "description": "TACO BELL 5678 SEATTLE, WA",
+    "amount": 7.89,
+    "balance": 105.11,
+    "category": "Dining",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed05",
+    "key": "e3d5b6c8-4f7a-40d2-9c2b-7e1f5d7b0e1a",
+    "date": "09/08/2024",
+    "description": "BEST BUY 2345 SEATTLE, WA",
+    "amount": 129.99,
+    "balance": 375.1,
+    "category": "Tech",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed06",
+    "key": "f7c8b2d4-7a5c-4f2d-a9c1-5f3e7d6c1f4e",
+    "date": "09/09/2024",
+    "description": "UBER EATS 4567 SEATTLE, WA",
+    "amount": 18.45,
+    "balance": 356.65,
+    "category": "Dining",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  },
+  {
+    "_id": "66cc120d345e0b31b845ed07",
+    "key": "c9d2f6b7-5e1f-40a1-94d3-8e4c1d5b0f7a",
+    "date": "09/10/2024",
+    "description": "HOME DEPOT 6789 SEATTLE, WA",
+    "amount": 89.75,
+    "balance": 266.9,
+    "category": "Home Improvement",
+    "userId": "66cadabb5cc4c9b848af9c30"
+  }
+]

@@ -31,7 +31,7 @@ router.get("/categories", (req, res) => {
     .find({ type: "default" })
     .toArray()
     .then((categories) => {
-      res.json(categories);
+      res.json({ data: categories });
     });
 });
 
