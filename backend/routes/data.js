@@ -42,4 +42,14 @@ router.get("/expenses", async (req, res) => {
   res.json({ data: expenses });
 });
 
+router.post("/update-category", async (req, res) => {
+  const db = req.app.locals.db;
+  const { id, category } = req.body;
+  const userId = req.user.user.id;
+  const result = await db
+    .collection("expenses")
+    .updateOne({ _id: id, userId }, { $set: { category } });
+  res.json({ data: result });
+});
+
 module.exports = router;

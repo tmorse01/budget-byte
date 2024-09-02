@@ -10,6 +10,7 @@ export type AccountingData = {
 
 export type CategoryData = {
   id_?: string;
+  key: string;
   name: string;
   type: "default" | "custom";
 };

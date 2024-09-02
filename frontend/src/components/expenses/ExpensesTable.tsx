@@ -13,6 +13,7 @@ import {
   SelectionEvents,
 } from "@fluentui/react-components";
 import Pagination from "@/components/Pagination";
+import CategoryDropdown from "./CategoryDropdown";
 
 const columns = [
   { columnKey: "date", label: "Date" },
@@ -24,6 +25,7 @@ const columns = [
 
 const ExpensesTable = () => {
   const { data } = useAccounting();
+  const { expenses } = data;
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
@@ -43,7 +45,7 @@ const ExpensesTable = () => {
   };
 
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
+  const paginatedData = expenses.slice(startIndex, startIndex + rowsPerPage);
   // TODO: Put icons in the headers
   // Make description the widest column
   // Allow sorting
@@ -67,7 +69,7 @@ const ExpensesTable = () => {
               <TableCell>
                 <TableCellLayout>{item.description}</TableCellLayout>
               </TableCell>
-              <TableCell>{item.category}</TableCell>
+              <TableCell>{<CategoryDropdown item={item} />}</TableCell>
               <TableCell>{formatCurrency(item.amount)}</TableCell>
               <TableCell>{formatCurrency(item.balance)}</TableCell>
             </TableRow>
@@ -76,7 +78,7 @@ const ExpensesTable = () => {
       </Table>
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(data.length / rowsPerPage)}
+        totalPages={Math.ceil(expenses.length / rowsPerPage)}
         onPageChange={handlePageChange}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleRowsPerPageChange}
