@@ -47,7 +47,10 @@ const useStyles = makeStyles({
 const Dashboard: React.FC<DashboardProps> = () => {
   const { data: accountData } = useAccounting();
   const { data: categoryData } = useFetch(
-    `${import.meta.env.VITE_API_URL}/api/data/categories`
+    `${import.meta.env.VITE_API_URL}/api/data/categories`,
+    {
+      requiresAuth: true,
+    }
   );
   const categories = useMemo(() => categoryData ?? [], [categoryData]);
   const categorySummary = useMemo(

@@ -11,6 +11,8 @@ import NavLink from "@components/NavLink";
 import LoginDialog from "./LoginDialog";
 import { ToastProvider } from "@/contexts/ToastContext";
 
+interface LayoutProps {}
+
 const useStyles = makeStyles({
   header: {
     backgroundColor: tokens["colorNeutralBackground4"],
@@ -43,7 +45,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Layout: React.FC = () => {
+const Layout: React.FC<LayoutProps> = () => {
   const classes = useStyles();
 
   return (

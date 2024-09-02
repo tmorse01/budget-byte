@@ -52,3 +52,7 @@ export const registerRequest = (
       throw error;
     });
 };
+
+export const getIsLoggedIn = (): boolean => {
+  return !!localStorage.getItem("token");
+};

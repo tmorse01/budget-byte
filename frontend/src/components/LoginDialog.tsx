@@ -15,6 +15,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useToast } from "@/hooks/useToast";
 import { loginRequest, registerRequest } from "@/util/AuthApi";
+import { useAccounting } from "@/hooks/useAccounting";
 
 interface LoginDialogProps {}
 
@@ -42,13 +43,18 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   const styles = useStyles();
   const { notify } = useToast();
   const [open, setOpen] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    localStorage.getItem("token") !== null
+  );
+  const { data: accountData, setData, fetchData } = useAccounting();
 
   const handleLogin = (username: string, password: string) => {
     loginRequest(username, password)
       .then(() => {
         setOpen(false);
         setIsLoggedIn(true);
+        fetchData();
+        setData(accountData);
         notify("Login successful", "You are now logged in", "success");
       })
       .catch(() => {
@@ -59,6 +65,7 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setData([]);
   };
 
   const handleRegister = (username: string, password: string) => {
