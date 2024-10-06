@@ -44,7 +44,7 @@ const useFetch = <T>(url: string, options?: FetchOptions) => {
     fetchData();
   }, [url, fetchData]);
 
-  return { data, loading, error, fetchData };
+  return { data, setData, loading, error, fetchData };
 };
 
 export default useFetch;

@@ -1,6 +1,6 @@
-import { AccountingData } from "@/types/types";
+import { TransactionData } from "@/types/types";
 
-export const uploadCsvFile = (accountingData: AccountingData[]) => {
+export const uploadCsvFile = (accountingData: TransactionData[]) => {
   return fetch(`${import.meta.env.VITE_API_URL}/api/data/upload`, {
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const uploadCsvFile = (accountingData: AccountingData[]) => {
     });
 };
 
-export const updateCategory = (updatedItem: AccountingData) => {
+export const updateCategory = (updatedItem: TransactionData) => {
   return fetch(`${import.meta.env.VITE_API_URL}/api/data/update-category`, {
     headers: {
       "Content-Type": "application/json",

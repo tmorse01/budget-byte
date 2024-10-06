@@ -1,5 +1,5 @@
 import {
-  AccountingData,
+  TransactionData,
   CategoryData,
   CategorySummary,
   CsvData,
@@ -49,7 +49,7 @@ export function convertCsvToJson(csvData: CsvData): TransactionRecord[] {
 
 export function convertToAccountingData(
   transactions: TransactionRecord[]
-): AccountingData[] {
+): TransactionData[] {
   return transactions.map((transaction) => {
     return {
       key: uuidv4(),
@@ -64,7 +64,7 @@ export function convertToAccountingData(
 
 export function summarizeAccountingData(
   userCategories: CategoryData[],
-  accountingData: AccountingData[]
+  accountingData: TransactionData[]
 ): CategorySummary[] {
   const categoryTotals: Record<TransactionCategory, number> =
     Object.fromEntries(

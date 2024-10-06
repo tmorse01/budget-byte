@@ -7,11 +7,11 @@ import {
   SelectionEvents,
 } from "@fluentui/react-components";
 import { useAccounting } from "@/hooks/useAccounting";
-import { AccountingData } from "@/types/types";
-import { updateCategory } from "@/util/DataApi";
+// import { updateCategory } from "@/util/DataApi";
 
 interface CategoryDropdownProps {
-  item: AccountingData;
+  value?: string;
+  onChange?: (category: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -20,7 +20,10 @@ const useStyles = makeStyles({
   },
 });
 
-const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ item }) => {
+const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
+  value,
+  onChange,
+}) => {
   const styles = useStyles();
 
   const { data } = useAccounting();
@@ -35,25 +38,25 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ item }) => {
     data: OptionOnSelectData
   ) => {
     if (data) {
-      updateCategoryInDatabase(data.optionText as string);
+      if (onChange) onChange(data.optionText as string);
+      // updateCategoryInDatabase(data.optionText as string);
     }
   };
 
-  const updateCategoryInDatabase = async (category: string) => {
-    const updatedItem = { ...item, category };
-    try {
-      await updateCategory(updatedItem);
-    } catch (error) {
-      console.error("Error updating category:", error);
-    }
-  };
+  // const updateCategoryInDatabase = async (category: string) => {
+  //   const updatedItem = { ...item, category };
+  //   try {
+  //     await updateCategory(updatedItem);
+  //   } catch (error) {
+  //     console.error("Error updating category:", error);
+  //   }
+  // };
 
   return (
     <Dropdown
       className={styles.dropdown}
       placeholder="Select a category"
-      defaultValue={item.category}
-      defaultSelectedOptions={item.category ? [item.category] : []}
+      value={value}
       onOptionSelect={handleOptionSelect}
     >
       {categoryOptions.map((option) => (

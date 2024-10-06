@@ -47,12 +47,26 @@ router.get("/transactions", async (req, res) => {
 
 router.post("/update-category", async (req, res) => {
   const db = req.app.locals.db;
-  const { id, category } = req.body;
+  const { key, category } = req.body;
   const userId = req.user.user.id;
-  const result = await db
-    .collection("transactions")
-    .updateOne({ _id: id, userId }, { $set: { category } });
-  res.json({ data: result });
+
+  try {
+    const result = await db
+      .collection("transactions")
+      .updateOne(
+        { key: key, userId: userId },
+        { $set: { category: category } }
+      );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    res.json({ message: "Category updated successfully", data: result });
+  } catch (error) {
+    console.error("Error updating category:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 module.exports = router;

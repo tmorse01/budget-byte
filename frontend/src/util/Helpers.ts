@@ -1,4 +1,4 @@
-import { Breakpoint, AccountingData, TotalData } from "@/types/types";
+import { Breakpoint, TransactionData, TotalData } from "@/types/types";
 
 export function determineBreakpoint(screenWidth: number) {
   if (screenWidth >= 1200) {
@@ -42,9 +42,9 @@ export function formatCurrency(amount: number) {
   });
 }
 
-export function calculateTotals(data: AccountingData[]): TotalData {
+export function calculateTotals(data: TransactionData[]): TotalData {
   const totals = data.reduce(
-    (acc: { income: number; expenses: number }, item: AccountingData) => {
+    (acc: { income: number; expenses: number }, item: TransactionData) => {
       if (item.amount > 0) {
         acc.income += item.amount;
       } else {

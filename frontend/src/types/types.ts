@@ -1,4 +1,4 @@
-export type AccountingData = {
+export type TransactionData = {
   id_?: string;
   key: string;
   date: string;
