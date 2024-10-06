@@ -1,9 +1,9 @@
 const express = require("express");
-const categorizeExpenses = require("../utils/categorize");
+const categorizeTransactions = require("../utils/categorize");
 const router = express.Router();
 
 router.get("/user", (req, res) => {
-  console.log("Get User expenses route");
+  console.log("Get User transactions route");
 });
 
 router.post("/upload", (req, res) => {
@@ -15,14 +15,14 @@ router.post("/upload", (req, res) => {
     return res.status(400).json({ error: "Invalid data format" });
   }
 
-  const categorizedExpenses = categorizeExpenses(data);
+  const categorizedTransactions = categorizeTransactions(data);
   // Associate each expense with the user
   const userId = req.user.user.id;
-  categorizedExpenses.forEach((expense) => {
+  categorizedTransactions.forEach((expense) => {
     expense.userId = userId;
   });
   // Insert data into database
-  db.collection("expenses").insertMany(categorizedExpenses);
+  db.collection("transactions").insertMany(categorizedTransactions);
 });
 
 router.get("/categories", (req, res) => {
@@ -35,11 +35,14 @@ router.get("/categories", (req, res) => {
     });
 });
 
-router.get("/expenses", async (req, res) => {
+router.get("/transactions", async (req, res) => {
   const db = req.app.locals.db;
   const userId = req.user.user.id;
-  const expenses = await db.collection("expenses").find({ userId }).toArray();
-  res.json({ data: expenses });
+  const transactions = await db
+    .collection("transactions")
+    .find({ userId })
+    .toArray();
+  res.json({ data: transactions });
 });
 
 router.post("/update-category", async (req, res) => {
@@ -47,7 +50,7 @@ router.post("/update-category", async (req, res) => {
   const { id, category } = req.body;
   const userId = req.user.user.id;
   const result = await db
-    .collection("expenses")
+    .collection("transactions")
     .updateOne({ _id: id, userId }, { $set: { category } });
   res.json({ data: result });
 });

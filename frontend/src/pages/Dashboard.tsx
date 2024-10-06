@@ -45,17 +45,17 @@ const useStyles = makeStyles({
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const { data } = useAccounting();
-  const { expenses, categories } = data;
+  const { transactions, categories } = data;
 
   const categorySummary = useMemo(
     () =>
       summarizeAccountingData(
         categories as unknown as CategoryData[],
-        expenses
+        transactions
       ),
-    [expenses, categories]
+    [transactions, categories]
   );
-  const totals = useMemo(() => calculateTotals(expenses), [expenses]);
+  const totals = useMemo(() => calculateTotals(transactions), [transactions]);
   const classes = useStyles();
 
   const formattedIncome = `$${totals.income.toLocaleString()}`;

@@ -6,9 +6,9 @@ import {
   Text,
 } from "@fluentui/react-components";
 import UploadCSVDialog from "@/components/UploadDialog";
-import ExpensesTable from "@/components/expenses/ExpensesTable";
+import TransactionTable from "@/components/transactions/TransactionTable";
 
-interface ExpensesProps {}
+interface TransactionProps {}
 
 const useStyles = makeStyles({
   title1: typographyStyles.title1,
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Expenses: React.FC<ExpensesProps> = () => {
+const Transactions: React.FC<TransactionProps> = () => {
   const classes = useStyles();
 
   return (
@@ -29,9 +29,9 @@ const Expenses: React.FC<ExpensesProps> = () => {
         Categorize your Expense Data
       </Text>
       <UploadCSVDialog />
-      <ExpensesTable />
+      <TransactionTable />
     </div>
   );
 };
 
-export default Expenses;
+export default Transactions;

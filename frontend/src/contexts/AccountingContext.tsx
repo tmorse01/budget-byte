@@ -11,7 +11,7 @@ type AccountingContextType = {
 };
 
 type AccountContextStateType = {
-  expenses: AccountingData[];
+  transactions: AccountingData[];
   categories: CategoryData[];
 };
 
@@ -27,11 +27,11 @@ export const AccountingProvider: React.FC<AccountingProviderProps> = ({
   children,
 }) => {
   const {
-    data: expenseData,
-    loading: expensesLoading,
+    data: transactionData,
+    loading: transactionsLoading,
     fetchData: fetchExpenseData,
   } = useFetch<AccountingData[]>(
-    `${import.meta.env.VITE_API_URL}/api/data/expenses`,
+    `${import.meta.env.VITE_API_URL}/api/data/transactions`,
     {
       requiresAuth: true,
     }
@@ -54,12 +54,12 @@ export const AccountingProvider: React.FC<AccountingProviderProps> = ({
   };
 
   const data = {
-    expenses:
-      expenseData ?? (ExampleExpenseData as unknown as AccountingData[]),
+    transactions:
+      transactionData ?? (ExampleExpenseData as unknown as AccountingData[]),
     categories:
       categoryData ?? (ExampleCategoryData as unknown as CategoryData[]),
   };
-  const isLoading = expensesLoading || categoriesLoading;
+  const isLoading = transactionsLoading || categoriesLoading;
 
   return (
     <AccountingContext.Provider value={{ data, isLoading, fetchData }}>

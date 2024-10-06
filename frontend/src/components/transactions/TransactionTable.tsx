@@ -25,7 +25,7 @@ const columns = [
 
 const ExpensesTable = () => {
   const { data } = useAccounting();
-  const { expenses } = data;
+  const { transactions: expenses } = data;
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 

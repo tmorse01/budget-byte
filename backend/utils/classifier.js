@@ -132,7 +132,7 @@ function getClassifier() {
     "Entertainment"
   );
 
-  // TODO: Feed in users expenses to train the classifier
+  // TODO: Feed in users transactions to train the classifier
 
   // Train the classifier
   classifier.train();

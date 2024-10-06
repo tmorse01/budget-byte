@@ -1,13 +1,13 @@
 const getClassifier = require("../utils/classifier");
 
-// Function to categorize expenses
-const categorizeExpenses = (expenses) => {
-  expenses.forEach((expense) => {
-    const category = getClassifier().classify(expense.description);
-    expense.category = category;
+// Function to categorize transactions
+const categorizeTransactions = (transactions) => {
+  transactions.forEach((transaction) => {
+    const category = getClassifier().classify(transaction.description);
+    transaction.category = category;
   });
 
-  return expenses;
+  return transactions;
 };
 
-module.exports = categorizeExpenses;
+module.exports = categorizeTransactions;

@@ -58,7 +58,7 @@ const Layout: React.FC<LayoutProps> = () => {
                 <NavLink to="/">Dashboard</NavLink>
               </li>
               <li className={classes.navLinkItem}>
-                <NavLink to="/expenses">Expenses</NavLink>
+                <NavLink to="/transactions">Transactions</NavLink>
               </li>
               <li className={classes.navLinkItem}>
                 <NavLink to="/categories">Categories</NavLink>
