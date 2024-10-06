@@ -5,7 +5,8 @@ export type TransactionData = {
   description?: string;
   amount: number;
   balance: number;
-  category: string | undefined;
+  categoryId?: string;
+  category?: string;
 };
 
 export type CategoryData = {

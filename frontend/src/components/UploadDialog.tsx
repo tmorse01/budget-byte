@@ -11,7 +11,7 @@ import {
   shorthands,
 } from "@fluentui/react-components";
 import CSVReader from "./CSVUpload";
-import { TransactionData, CsvData } from "@/types/types";
+import { CsvData, TransactionData } from "@/types/types";
 import { useAccounting } from "@/hooks/useAccounting";
 import { convertCsvToJson, convertToAccountingData } from "@/util/DataLoader";
 import { useState } from "react";
@@ -26,22 +26,22 @@ const useStyles = makeStyles({
 
 const UploadCSVDialog = () => {
   const classes = useStyles();
-  const { setData } = useAccounting();
-  const [dataUploaded, setDataUploaded] = useState<TransactionData[]>();
-  const handleFileUpload = (results: CsvData) => {
+  const { setTransactionData } = useAccounting();
+  const [dataUploaded, setDataUploaded] = useState<CsvData>();
+  const handleFileUpload = async (results: CsvData) => {
     if (results) {
-      // TODO: Move the conversion logic to the backend
-      // Process the uploaded CSV file here
-      const expenseJson = convertCsvToJson(results);
-      const accountingData = convertToAccountingData(expenseJson);
-      setDataUploaded(accountingData);
-      uploadCsvFile(accountingData);
+      setDataUploaded(results);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (dataUploaded) {
-      setData(dataUploaded);
+      // TODO: Move the conversion logic to the backend
+      // Process the uploaded CSV file here
+      const expenseJson = convertCsvToJson(dataUploaded);
+      const accountingData = convertToAccountingData(expenseJson);
+      const categorizedData = await uploadCsvFile(accountingData);
+      setTransactionData(categorizedData as TransactionData[]);
     }
   };
 

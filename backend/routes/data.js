@@ -1,5 +1,5 @@
 const express = require("express");
-const categorizeTransactions = require("../utils/categorize");
+const { categorizeTransactions } = require("../utils/categorize");
 const router = express.Router();
 
 router.get("/user", (req, res) => {
@@ -7,22 +7,32 @@ router.get("/user", (req, res) => {
 });
 
 router.post("/upload", (req, res) => {
-  console.log("Accounting data upload", req.body);
+  // console.log("Accounting data upload", req.body);
   const { data, type } = req.body;
   const db = req.app.locals.db;
 
   if (!Array.isArray(data)) {
     return res.status(400).json({ error: "Invalid data format" });
   }
-
-  const categorizedTransactions = categorizeTransactions(data);
-  // Associate each expense with the user
-  const userId = req.user.user.id;
-  categorizedTransactions.forEach((expense) => {
-    expense.userId = userId;
-  });
-  // Insert data into database
-  db.collection("transactions").insertMany(categorizedTransactions);
+  // TOOD: Create reusable function to get users categories + defaults
+  db.collection("categories")
+    .find({ type: "default" })
+    .toArray()
+    .then((categories) => {
+      const categorizedTransactions = categorizeTransactions(data, categories);
+      // Associate each expense with the user
+      const userId = req.user.user.id;
+      categorizedTransactions?.forEach((expense) => {
+        expense.userId = userId;
+      });
+      console.log(
+        "finished categorizing transactions",
+        categorizedTransactions
+      );
+      // Insert data into database
+      db.collection("transactions").insertMany(categorizedTransactions);
+      res.json({ message: "Data uploaded successfully" });
+    });
 });
 
 router.get("/categories", (req, res) => {

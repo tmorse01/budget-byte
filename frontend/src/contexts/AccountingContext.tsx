@@ -7,6 +7,9 @@ import { updateCategory } from "@/util/DataApi";
 
 type AccountingContextType = {
   data: AccountContextStateType;
+  setTransactionData: React.Dispatch<
+    React.SetStateAction<TransactionData[] | null>
+  >;
   isLoading: boolean;
   fetchData: () => Promise<void>;
   handleTransactionCategoryUpdate: (updatedItem: TransactionData) => void;
@@ -60,12 +63,10 @@ export const AccountingProvider: React.FC<AccountingProviderProps> = ({
     updatedItem: TransactionData
   ) => {
     try {
-      console.log("Category changed to:", updatedItem);
       setTransactionData((prevData: TransactionData[] | null) => {
         if (!prevData) return prevData;
         return prevData.map((item: TransactionData) => {
           if (item.key === updatedItem.key) {
-            console.log("found ", item, updatedItem);
             return updatedItem;
           } else {
             return item;
@@ -85,10 +86,16 @@ export const AccountingProvider: React.FC<AccountingProviderProps> = ({
       categoryData ?? (ExampleCategoryData as unknown as CategoryData[]),
   };
   const isLoading = transactionsLoading || categoriesLoading;
-  console.log("Data:", data);
+
   return (
     <AccountingContext.Provider
-      value={{ data, isLoading, fetchData, handleTransactionCategoryUpdate }}
+      value={{
+        data,
+        setTransactionData,
+        isLoading,
+        fetchData,
+        handleTransactionCategoryUpdate,
+      }}
     >
       {children}
     </AccountingContext.Provider>
